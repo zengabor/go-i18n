@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 
-	"github.com/nicksnyder/go-i18n/v2/internal/plural"
+	"github.com/zengabor/go-i18n/v2/internal/plural"
 
 	"golang.org/x/text/language"
 )
@@ -141,4 +141,8 @@ func (b *Bundle) getMessageTemplate(tag language.Tag, id string) *MessageTemplat
 		return nil
 	}
 	return templates[id]
+}
+
+func (b *Bundle) DefaultLanguage() language.Tag {
+	return b.defaultLanguage
 }
