@@ -73,3 +73,16 @@ func (l *Localizer) referenceArgNames(id string) []string {
 	}
 	return r
 }
+
+func (l *Localizer) matchTemplate(id string, defaultMessage *Message, matcher language.Matcher, tags []language.Tag) (language.Tag, *MessageTemplate) {
+	_, i, _ := matcher.Match(l.tags...)
+	tag := tags[i]
+	templates := l.bundle.messageTemplates[tag]
+	if templates != nil && templates[id] != nil {
+		return tag, templates[id]
+	}
+	if tag == l.bundle.defaultLanguage && defaultMessage != nil {
+		return tag, NewMessageTemplate(defaultMessage)
+	}
+	return tag, nil
+}
